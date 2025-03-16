@@ -1,108 +1,683 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Portfolio</title>
     <style>
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
+      /* Base styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f0f2f5;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      /* Header styles */
+      header {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: white;
+        padding: 100px 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .header-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at 20% 50%,
+          rgba(99, 102, 241, 0.4) 0%,
+          rgba(139, 92, 246, 0.2) 50%,
+          rgba(0, 0, 0, 0) 100%
+        );
+      }
+
+      .header-title {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        animation: fadeIn 1s ease-out;
+      }
+
+      .header-subtitle {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        animation: fadeIn 1s ease-out 0.3s forwards;
+        opacity: 0;
+      }
+
+      /* Navigation */
+      nav {
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #6366f1;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-links li {
+        margin-left: 2rem;
+      }
+
+      .nav-links a {
+        color: #333;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: #6366f1;
+      }
+
+      /* Main content */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      section {
+        margin: 4rem 0;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      }
+
+      /* Projects */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .project-card {
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .project-image {
+        height: 200px;
+        width: 100%;
+        background-color: #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: #6366f1;
+      }
+
+      .project-content {
+        padding: 1.5rem;
+      }
+
+      .project-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .project-description {
+        color: #666;
+        margin-bottom: 1rem;
+      }
+
+      /* Skills */
+      .skills-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+      }
+
+      .skill-card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        width: 180px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .skill-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .skill-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #6366f1;
+      }
+
+      .skill-progress {
+        width: 100%;
+        height: 6px;
+        background-color: #eee;
+        border-radius: 3px;
+        margin-top: 1rem;
+        overflow: hidden;
+      }
+
+      .skill-progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #6366f1, #8b5cf6);
+        border-radius: 3px;
+        transition: width 1s ease-out;
+      }
+
+      /* Contact */
+      .contact-form {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      .form-input,
+      .form-textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        transition: border-color 0.3s;
+      }
+
+      .form-input:focus,
+      .form-textarea:focus {
+        outline: none;
+        border-color: #6366f1;
+      }
+
+      .form-textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      .btn {
+        display: inline-block;
+        background: linear-gradient(90deg, #6366f1, #8b5cf6);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+      }
+
+      /* Footer */
+      footer {
+        background-color: #333;
+        color: white;
+        padding: 2rem 0;
+        text-align: center;
+      }
+
+      .social-links {
+        margin: 1rem 0;
+      }
+
+      .social-link {
+        display: inline-block;
+        margin: 0 0.5rem;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s;
+      }
+
+      .social-link:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animated {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .fadeIn {
+        animation: fadeIn 0.8s ease-out forwards;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .header-title {
+          font-size: 2.5rem;
         }
 
-        header {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 2em 0;
+        .header-subtitle {
+          font-size: 1.2rem;
         }
 
-        section {
-            padding: 2em;
-            max-width: 800px;
-            margin: 0 auto;
+        .projects-grid {
+          grid-template-columns: 1fr;
         }
 
-        .project {
-            border: 1px solid #ddd;
-            padding: 1em;
-            margin-bottom: 1em;
+        .nav-container {
+          flex-direction: column;
+          padding: 1rem;
         }
 
-        .project img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin-bottom: 1em;
+        .nav-links {
+          margin-top: 1rem;
         }
 
-        footer {
-            background-color: #f0f0f0;
-            text-align: center;
-            padding: 1em 0;
-            border-top: 1px solid #ddd;
+        .nav-links li {
+          margin-left: 1rem;
+          margin-right: 1rem;
         }
-
-        .contact-info {
-           display: flex;
-           justify-content: center;
-           gap: 20px;
-        }
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <header>
-        <h1>Your Name</h1>
-        <p>Web Developer | Designer</p>
+      <div class="header-bg"></div>
+      <div class="header-content">
+        <h1 class="header-title">ยินดีต้อนรับสู่ Portfolio ของฉัน</h1>
+        <p class="header-subtitle">นักพัฒนาเว็บและนักออกแบบสร้างสรรค์</p>
+        <button class="btn" id="explore-btn">สำรวจผลงาน</button>
+      </div>
     </header>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p>
-            Hello! I'm a passionate web developer with a focus on creating clean, user-friendly websites. I enjoy learning new technologies and tackling challenging projects.
-        </p>
-    </section>
+    <nav>
+      <div class="nav-container">
+        <div class="logo">MyPortfolio</div>
+        <ul class="nav-links">
+          <li><a href="#about">เกี่ยวกับฉัน</a></li>
+          <li><a href="#projects">ผลงาน</a></li>
+          <li><a href="#skills">ทักษะ</a></li>
+          <li><a href="#contact">ติดต่อ</a></li>
+        </ul>
+      </div>
+    </nav>
 
-    <section id="projects">
-        <h2>My Projects</h2>
+    <main class="container">
+      <section id="about">
+        <h2 class="section-title">เกี่ยวกับฉัน</h2>
+        <div class="about-content">
+          <p>
+            สวัสดีครับ!
+            ฉันเป็นนักพัฒนาเว็บและนักออกแบบที่มีความหลงใหลในการสร้างผลงานที่สวยงามและมีประสิทธิภาพ
+            ฉันมีประสบการณ์ในการทำงานกับเทคโนโลยีที่หลากหลาย
+            และมุ่งมั่นที่จะพัฒนาทักษะของตัวเองอยู่เสมอ
+          </p>
+          <p>
+            ด้วยความสร้างสรรค์และความใส่ใจในรายละเอียด
+            ฉันมุ่งมั่นที่จะสร้างผลงานที่ตอบโจทย์ความต้องการของลูกค้าและสร้างประสบการณ์ที่ดีให้กับผู้ใช้งาน
+          </p>
+        </div>
+      </section>
 
-        <div class="project">
-            <img src="placeholder-project1.jpg" alt="Project 1">
-            <h3>Project 1: E-commerce Website</h3>
-            <p>Developed a fully functional e-commerce website using React and Node.js. Features include user authentication, product catalog, and shopping cart functionality.</p>
-            <a href="#">View Project</a>
-        </div>
+      <section id="projects">
+        <h2 class="section-title">ผลงานของฉัน</h2>
+        <div class="projects-grid">
+          <div class="project-card animated">
+            <div class="project-image">
+              <img src="/api/placeholder/400/200" alt="placeholder" />
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">ออกแบบเว็บไซต์ร้านอาหาร</h3>
+              <p class="project-description">
+                ออกแบบและพัฒนาเว็บไซต์สำหรับร้านอาหารที่มีสไตล์ที่เป็นเอกลักษณ์
+              </p>
+              <button class="btn project-btn">ดูรายละเอียด</button>
+            </div>
+          </div>
 
-        <div class="project">
-            <img src="placeholder-project2.jpg" alt="Project 2">
-            <h3>Project 2: Portfolio Website</h3>
-            <p>Designed and built a responsive portfolio website using HTML, CSS, and JavaScript. Focused on clean design and user experience.</p>
-            <a href="#">View Project</a>
-        </div>
-        <div class="project">
-            <img src="placeholder-project3.jpg" alt="Project 3">
-            <h3>Project 3: Data Visualization Dashboard</h3>
-            <p>Created a dynamic dashboard using D3.js to visualize complex datasets. Implemented interactive charts and graphs for data analysis.</p>
-            <a href="#">View Project</a>
-        </div>
-    </section>
+          <div class="project-card animated">
+            <div class="project-image">
+              <img src="/api/placeholder/400/200" alt="placeholder" />
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">แอพพลิเคชั่นจัดการงาน</h3>
+              <p class="project-description">
+                พัฒนาแอพพลิเคชั่นจัดการงานที่มีประสิทธิภาพและใช้งานง่าย
+              </p>
+              <button class="btn project-btn">ดูรายละเอียด</button>
+            </div>
+          </div>
 
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <p>Feel free to reach out for collaborations or inquiries.</p>
-        <div class="contact-info">
-            <a href="mailto:your.email@example.com">Email</a>
-            <a href="https://github.com/yourusername">GitHub</a>
-            <a href="https://linkedin.com/in/yourusername">LinkedIn</a>
+          <div class="project-card animated">
+            <div class="project-image">
+              <img src="/api/placeholder/400/200" alt="placeholder" />
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">เว็บไซต์ E-commerce</h3>
+              <p class="project-description">
+                ออกแบบและพัฒนาเว็บไซต์ E-commerce ที่มีฟังก์ชั่นครบครัน
+              </p>
+              <button class="btn project-btn">ดูรายละเอียด</button>
+            </div>
+          </div>
+          <div class="project-card animated">
+            <div class="project-image">
+              <img src="/api/placeholder/400/200" alt="placeholder" />
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">แอพพลิเคชั่นมือถือ</h3>
+              <p class="project-description">
+                พัฒนาแอพพลิเคชั่นมือถือสำหรับการจองบริการออนไลน์
+              </p>
+              <button class="btn project-btn">ดูรายละเอียด</button>
+            </div>
+          </div>
+
+          <div class="project-card animated">
+            <div class="project-image">
+              <img src="/api/placeholder/400/200" alt="placeholder" />
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">เว็บไซต์ท่องเที่ยว</h3>
+              <p class="project-description">
+                ออกแบบเว็บไซต์สำหรับการท่องเที่ยวที่แสดงข้อมูลแบบอินเตอร์แอคทีฟ
+              </p>
+              <button class="btn project-btn">ดูรายละเอียด</button>
+            </div>
+          </div>
+
+          <div class="project-card animated">
+            <div class="project-image">
+              <img src="/api/placeholder/400/200" alt="placeholder" />
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">แดชบอร์ดวิเคราะห์ข้อมูล</h3>
+              <p class="project-description">
+                สร้างแดชบอร์ดสำหรับวิเคราะห์และแสดงข้อมูลทางธุรกิจ
+              </p>
+              <button class="btn project-btn">ดูรายละเอียด</button>
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
+
+      <section id="skills">
+        <h2 class="section-title">ทักษะของฉัน</h2>
+        <div class="skills-container">
+          <div class="skill-card animated">
+            <div class="skill-icon">HTML5</div>
+            <h3>HTML5</h3>
+            <div class="skill-progress">
+              <div class="skill-progress-bar" style="width: 95%"></div>
+            </div>
+          </div>
+
+          <div class="skill-card animated">
+            <div class="skill-icon">CSS3</div>
+            <h3>CSS3</h3>
+            <div class="skill-progress">
+              <div class="skill-progress-bar" style="width: 90%"></div>
+            </div>
+          </div>
+
+          <div class="skill-card animated">
+            <div class="skill-icon">JS</div>
+            <h3>JavaScript</h3>
+            <div class="skill-progress">
+              <div class="skill-progress-bar" style="width: 85%"></div>
+            </div>
+          </div>
+
+          <div class="skill-card animated">
+            <div class="skill-icon">React</div>
+            <h3>React</h3>
+            <div class="skill-progress">
+              <div class="skill-progress-bar" style="width: 80%"></div>
+            </div>
+          </div>
+
+          <div class="skill-card animated">
+            <div class="skill-icon">UX</div>
+            <h3>UX Design</h3>
+            <div class="skill-progress">
+              <div class="skill-progress-bar" style="width: 75%"></div>
+            </div>
+          </div>
+
+          <div class="skill-card animated">
+            <div class="skill-icon">Node</div>
+            <h3>Node.js</h3>
+            <div class="skill-progress">
+              <div class="skill-progress-bar" style="width: 70%"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2 class="section-title">ติดต่อฉัน</h2>
+        <div class="contact-form animated">
+          <div class="form-group">
+            <label for="name" class="form-label">ชื่อ</label>
+            <input
+              type="text"
+              id="name"
+              class="form-input"
+              placeholder="กรุณาใส่ชื่อของคุณ"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">อีเมล</label>
+            <input
+              type="email"
+              id="email"
+              class="form-input"
+              placeholder="your.email@example.com"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="subject" class="form-label">หัวข้อ</label>
+            <input
+              type="text"
+              id="subject"
+              class="form-input"
+              placeholder="กรุณาใส่หัวข้อ"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label">ข้อความ</label>
+            <textarea
+              id="message"
+              class="form-textarea"
+              placeholder="กรุณาใส่ข้อความของคุณ"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn" id="submit-btn">ส่งข้อความ</button>
+        </div>
+      </section>
+    </main>
 
     <footer>
-        <p>&copy; 2024 Your Name</p>
+      <div class="container">
+        <p>© 2025 My Portfolio. สงวนลิขสิทธิ์</p>
+        <div class="social-links">
+          <a href="#" class="social-link">FB</a>
+          <a href="#" class="social-link">IG</a>
+          <a href="#" class="social-link">LI</a>
+          <a href="#" class="social-link">TW</a>
+        </div>
+      </div>
     </footer>
 
-</body>
+    <script>
+      // Animation on scroll
+      document.addEventListener("DOMContentLoaded", function () {
+        // Add animations to elements
+        const animatedElements = document.querySelectorAll(".animated");
+
+        function checkInView() {
+          animatedElements.forEach((element) => {
+            const rect = element.getBoundingClientRect();
+            const isInView =
+              rect.top <= window.innerHeight * 0.8 && rect.bottom >= 0;
+
+            if (isInView && !element.classList.contains("fadeIn")) {
+              element.classList.add("fadeIn");
+            }
+          });
+        }
+
+        // Check on load
+        checkInView();
+
+        // Check on scroll
+        window.addEventListener("scroll", checkInView);
+
+        // Button animations
+        const projectBtns = document.querySelectorAll(".project-btn");
+        projectBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            this.classList.add("clicked");
+            setTimeout(() => {
+              this.classList.remove("clicked");
+            }, 300);
+            alert('คุณคลิกที่ "ดูรายละเอียด" สำหรับโปรเจคนี้!');
+          });
+        });
+
+        // Submit form animation
+        const submitBtn = document.getElementById("submit-btn");
+        if (submitBtn) {
+          submitBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            this.innerHTML = "กำลังส่ง...";
+
+            setTimeout(() => {
+              this.innerHTML = "ส่งสำเร็จ! ✓";
+              this.style.background =
+                "linear-gradient(90deg, #10B981, #059669)";
+            }, 1500);
+
+            setTimeout(() => {
+              this.innerHTML = "ส่งข้อความ";
+              this.style.background =
+                "linear-gradient(90deg, #6366F1, #8B5CF6)";
+
+              // Reset form
+              document.getElementById("name").value = "";
+              document.getElementById("email").value = "";
+              document.getElementById("subject").value = "";
+              document.getElementById("message").value = "";
+            }, 3000);
+          });
+        }
+
+        // Explore button animation
+        const exploreBtn = document.getElementById("explore-btn");
+        if (exploreBtn) {
+          exploreBtn.addEventListener("click", function () {
+            document.getElementById("projects").scrollIntoView({
+              behavior: "smooth",
+            });
+          });
+        }
+
+        // Skill bar animation
+        const skillBars = document.querySelectorAll(".skill-progress-bar");
+        skillBars.forEach((bar) => {
+          const width = bar.style.width;
+          bar.style.width = "0";
+
+          setTimeout(() => {
+            bar.style.width = width;
+          }, 500);
+        });
+      });
+    </script>
+  </body>
 </html>
