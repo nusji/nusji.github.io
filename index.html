@@ -66,34 +66,36 @@
     body {
       font-family: 'Prompt', sans-serif;
       overflow-x: hidden;
+      background-color: #121212;
     }
     
     .bg-gradient-cool {
-      background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.9), rgba(6, 182, 212, 0.8), rgba(37, 99, 235, 0.7));
+      background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.9), rgba(16, 64, 32, 0.8), rgba(0, 0, 0, 0.7));
     }
     
     .glass-card {
-      background-color: rgba(255, 255, 255, 0.05);
+      background-color: rgba(16, 32, 16, 0.15);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(64, 255, 128, 0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 0 10px rgba(64, 255, 128, 0.05);
     }
     
     .glass-button {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(32, 64, 32, 0.2);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(64, 255, 128, 0.2);
       transition: all 0.3s;
     }
     
     .glass-button:hover {
-      background-color: rgba(255, 255, 255, 0.2);
+      background-color: rgba(64, 255, 128, 0.2);
+      box-shadow: 0 0 12px rgba(64, 255, 128, 0.3);
     }
     
     .text-gradient {
-      background: linear-gradient(to right, #2563eb, #06b6d4);
+      background: linear-gradient(to right, #4ade80, #22c55e);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -118,9 +120,9 @@
     .loader {
       width: 40px;
       height: 40px;
-      border: 3px solid rgba(255, 255, 255, 0.2);
+      border: 3px solid rgba(64, 255, 128, 0.2);
       border-radius: 50%;
-      border-top-color: #fff;
+      border-top-color: #4ade80;
       animation: spin 1s ease-in-out infinite;
     }
     
@@ -186,15 +188,28 @@
         transform: translateY(-10px);
       }
     }
+    
+    .fun-pattern {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(rgba(64, 255, 128, 0.1) 2px, transparent 2px);
+      background-size: 30px 30px;
+      pointer-events: none;
+      opacity: 0.5;
+    }
   </style>
 </head>
 <body class="font-prompt">
   <div class="relative min-h-screen overflow-hidden bg-gradient-cool flex items-center justify-center">
+    <!-- Fun pattern background -->
+    <div class="fun-pattern"></div>
+    
     <!-- Background floating elements -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
-      <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-white/5 backdrop-blur-sm" style="animation: float 6s ease-in-out infinite;"></div>
-      <div class="absolute bottom-1/3 right-1/3 w-96 h-96 rounded-full bg-white/5 backdrop-blur-sm" style="animation: float 6s ease-in-out 1s infinite;"></div>
-      <div class="absolute top-2/3 left-1/3 w-48 h-48 rounded-full bg-white/5 backdrop-blur-sm" style="animation: float 6s ease-in-out 2s infinite;"></div>
+      <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-green-500/5 backdrop-blur-sm" style="animation: float 6s ease-in-out infinite;"></div>
+      <div class="absolute bottom-1/3 right-1/3 w-96 h-96 rounded-full bg-green-500/5 backdrop-blur-sm" style="animation: float 6s ease-in-out 1s infinite;"></div>
+      <div class="absolute top-2/3 left-1/3 w-48 h-48 rounded-full bg-green-500/5 backdrop-blur-sm" style="animation: float 6s ease-in-out 2s infinite;"></div>
     </div>
 
     <!-- Content container -->
@@ -203,7 +218,7 @@
         <div class="glass-card rounded-2xl p-8 md:p-12">
           <!-- Main heading with typing effect -->
           <div class="mb-8 text-center">
-            <div class="text-xs font-mono tracking-widest text-white/60 uppercase mb-2 fade-in">
+            <div class="text-xs font-mono tracking-widest text-green-400/60 uppercase mb-2 fade-in">
               ว้าว! คุณเจอผมแล้ว
             </div>
             <h1 class="typing-container mb-2">
@@ -212,7 +227,7 @@
               </span>
             </h1>
             
-            <p id="subtitle" class="text-white/80 mt-6 text-sm md:text-base opacity-0 transition-opacity duration-500">
+            <p id="subtitle" class="text-green-200/80 mt-6 text-sm md:text-base opacity-0 transition-opacity duration-500">
               ผมกำลังทุบแล้วสร้างใหม่ ให้มันเจ๋งขึ้นกว่าเดิม แวะมาใหม่เร็วๆ นี้นะ!
             </p>
           </div>
@@ -223,8 +238,8 @@
               <div id="emoji" class="text-5xl md:text-7xl emoji-bounce mb-4">
                 🚧
               </div>
-              <div class="bg-white/10 backdrop-blur-md rounded-lg py-3 px-6 max-w-md text-center">
-                <p id="funny-message" class="text-white/90 text-lg font-medium">กำลังเขียนโค้ดแบบหลับตา... 😴</p>
+              <div class="bg-green-900/20 backdrop-blur-md rounded-lg py-3 px-6 max-w-md text-center border border-green-500/20">
+                <p id="funny-message" class="text-green-100/90 text-lg font-medium">กำลังเขียนโค้ดแบบหลับตา... 😴</p>
               </div>
             </div>
           </div>
@@ -232,64 +247,82 @@
           <!-- Fun tools animation -->
           <div id="tools-container" class="flex justify-center space-x-8 my-8 opacity-0 transition-opacity duration-500">
             <div style="animation: spin 8s linear infinite; opacity: 0.8;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M14 4l-3.2 3.2M18 8l.4-.4a2 2 0 0 0-2.8-2.8l-.4.4M14 20l3.2-3.2M18 16l.4.4a2 2 0 0 1-2.8 2.8l-.4-.4M4 14l3.2-3.2M4 14l3.2 3.2M8 18l-.4.4a2 2 0 0 1-2.8-2.8l.4-.4M8 6l-.4-.4a2 2 0 0 0-2.8 2.8l.4.4"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l-3.2 3.2M18 8l.4-.4a2 2 0 0 0-2.8-2.8l-.4.4M14 20l3.2-3.2M18 16l.4.4a2 2 0 0 1-2.8 2.8l-.4-.4M4 14l3.2-3.2M4 14l3.2 3.2M8 18l-.4.4a2 2 0 0 1-2.8-2.8l.4-.4M8 6l-.4-.4a2 2 0 0 0-2.8 2.8l.4.4"></path></svg>
             </div>
             <div style="animation: bounce 1s infinite; animation-delay: 100ms; opacity: 0.8;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M15 12l-8.5 8.5c-.83.83-2.17.83-3 0 0 0 0 0 0 0a2.12 2.12 0 0 1 0-3L12 9"></path><path d="M17.64 15 22 10.64"></path><path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 12l-8.5 8.5c-.83.83-2.17.83-3 0 0 0 0 0 0 0a2.12 2.12 0 0 1 0-3L12 9"></path><path d="M17.64 15 22 10.64"></path><path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"></path></svg>
             </div>
             <div style="animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; animation-delay: 200ms; opacity: 0.8;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M17 8h1a4 4 0 1 1 0 8h-1"></path><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path><line x1="6" x2="6" y1="2" y2="4"></line><line x1="10" x2="10" y1="2" y2="4"></line><line x1="14" x2="14" y1="2" y2="4"></line></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"></path><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path><line x1="6" x2="6" y1="2" y2="4"></line><line x1="10" x2="10" y1="2" y2="4"></line><line x1="14" x2="14" y1="2" y2="4"></line></svg>
             </div>
             <div style="animation: spin 8s linear infinite; animation-delay: 300ms; opacity: 0.8;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
             </div>
           </div>
 
           <!-- Social links -->
           <div id="social-container" class="flex justify-center space-x-6 opacity-0 transition-opacity duration-500">
             <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="glass-button group flex items-center space-x-2 rounded-full p-3 fade-in fade-in-delay-1" aria-label="GitHub">
-              <span class="text-white/90 group-hover:text-white transition-colors duration-300">
+              <span class="text-green-400/90 group-hover:text-green-400 transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
               </span>
             </a>
             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="glass-button group flex items-center space-x-2 rounded-full p-3 fade-in fade-in-delay-2" aria-label="Twitter">
-              <span class="text-white/90 group-hover:text-white transition-colors duration-300">
+              <span class="text-green-400/90 group-hover:text-green-400 transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
               </span>
             </a>
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="glass-button group flex items-center space-x-2 rounded-full p-3 fade-in fade-in-delay-3" aria-label="LinkedIn">
-              <span class="text-white/90 group-hover:text-white transition-colors duration-300">
+              <span class="text-green-400/90 group-hover:text-green-400 transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
               </span>
             </a>
           </div>
 
           <!-- Newsletter subscription -->
-          <div id="newsletter-container" class="mt-12 border-t border-white/10 pt-8 opacity-0 transition-opacity duration-500">
-            <div class="text-center mb-4">
-              <h3 class="text-white text-sm font-semibold mb-1">อยากรู้เมื่อไหร่เว็บจะเสร็จสักที?</h3>
-              <p class="text-white/60 text-xs">ใส่อีเมลไว้ แล้วเราจะรีบบอกคุณทันทีที่เว็บพร้อมเปิดตัว!</p>
-            </div>
-            <form class="flex flex-col sm:flex-row gap-2 sm:gap-0 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="อีเมลของคุณ (เราจะไม่ส่งสแปม จริงๆนะ)"
-                class="flex-1 px-4 py-2 rounded-l-md sm:rounded-r-none rounded-r-md bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30"
-              />
-              <button
-                type="submit"
-                class="sm:flex-none px-6 py-2 rounded-r-md sm:rounded-l-none rounded-l-md bg-white text-blue-600 font-medium hover:bg-white/90 transition-colors duration-300 flex items-center justify-center gap-1"
-              >
-                <span>บอกฉันด้วย</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#ec4899" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pink-500"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
-              </button>
-            </form>
-          </div>
-        </div>
+  <div id="newsletter-container" class="mt-12 border-t border-green-500/10 pt-8 opacity-0 transition-opacity duration-500">
+    <div class="text-center mb-4">
+      <h3 class="text-green-300 text-sm font-semibold mb-1">อยากรู้เมื่อไหร่เว็บจะเสร็จสักที?</h3>
+      <p class="text-green-400/60 text-xs">ใส่อีเมลไว้ แล้วเราจะรีบบอกคุณทันทีที่เว็บพร้อมเปิดตัว!</p>
+    </div>
+    <form 
+      id="email-form"
+      class="flex flex-col sm:flex-row gap-2 sm:gap-0 max-w-md mx-auto"
+    >
+      <!-- ฟิลด์ซ่อนเหล่านี้จำเป็นสำหรับ FormSubmit -->
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="มีคนอยากรู้เมื่อเว็บคุณจะพร้อม!">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="thank-you.html">
+      
+      <input
+        type="email"
+        name="email"
+        placeholder="อีเมลของคุณ (เราจะไม่ส่งสแปม จริงๆนะ)"
+        required
+        class="flex-1 px-4 py-2 rounded-l-md sm:rounded-r-none rounded-r-md bg-black/20 backdrop-blur-md border border-green-500/20 text-white placeholder:text-green-400/40 focus:outline-none focus:ring-2 focus:ring-green-500/30"
+      />
+      <button
+        type="submit"
+        class="sm:flex-none px-6 py-2 rounded-r-md sm:rounded-l-none rounded-l-md bg-green-600 text-black font-medium hover:bg-green-500 transition-colors duration-300 flex items-center justify-center gap-1"
+        id="submit-btn"
+      >
+        <span id="submit-text">บอกฉันด้วย</span>
+        <svg id="submit-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#000" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-black"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+        <svg id="loading-spinner" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden animate-spin"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></svg>
+      </button>
+    </form>
+    <div id="form-success" class="hidden mt-3 text-center">
+      <p class="text-green-400 text-sm">ขอบคุณ! เราจะแจ้งให้คุณทราบเมื่อเว็บไซต์พร้อม</p>
+    </div>
+    <div id="form-error" class="hidden mt-3 text-center">
+      <p class="text-red-400 text-sm">เกิดข้อผิดพลาด กรุณาลองอีกครั้งในภายหลัง</p>
+    </div>
+  </div>
 
         <!-- Footer -->
         <div class="mt-8 text-center fade-in fade-in-delay-3">
-          <p class="text-white/50 text-xs">© <span id="current-year"></span> ทำด้วยความรักและคาเฟอีนเยอะมาก ❤️</p>
+          <p class="text-green-400/50 text-xs">© <span id="current-year"></span> ทำด้วยความรักและคาเฟอีนเยอะมาก 💚</p>
         </div>
       </div>
     </div>
@@ -309,7 +342,7 @@
     }, 3500);
 
     // Rotate through emojis
-    const emojis = ["🛠️", "🚧", "💻", "🎨", "✨", "🔧"];
+    const emojis = ["🛠️", "🚧", "💻", "🎮", "✨", "🔧"];
     let currentEmoji = 0;
     
     setInterval(() => {
@@ -337,6 +370,61 @@
       currentMessageIndex = Math.floor(Math.random() * funnyMessages.length);
       document.getElementById('funny-message').textContent = funnyMessages[currentMessageIndex];
     }, 5000);
+
+    // จัดการฟอร์มด้วย AJAX
+    document.getElementById('email-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // แสดง loading state
+      const submitBtn = document.getElementById('submit-btn');
+      const submitText = document.getElementById('submit-text');
+      const submitIcon = document.getElementById('submit-icon');
+      const loadingSpinner = document.getElementById('loading-spinner');
+      
+      submitBtn.disabled = true;
+      submitText.textContent = 'กำลังส่ง...';
+      submitIcon.classList.add('hidden');
+      loadingSpinner.classList.remove('hidden');
+      
+      // ส่งข้อมูลฟอร์ม
+      const formData = new FormData(this);
+      
+      fetch('https://formsubmit.co/ajax/amindao.work@gmail.com', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      })
+      .then(data => {
+        // แสดงข้อความสำเร็จ
+        document.getElementById('form-success').classList.remove('hidden');
+        document.getElementById('email-form').classList.add('hidden');
+        
+        // Redirect ไปยังหน้า thank-you.html หลังจาก 2 วินาที
+        setTimeout(() => {
+          window.location.href = 'thank-you.html';
+        }, 2000);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // แสดงข้อความผิดพลาด
+        document.getElementById('form-error').classList.remove('hidden');
+        
+        // รีเซ็ตปุ่มส่ง
+        submitBtn.disabled = false;
+        submitText.textContent = 'บอกฉันด้วย';
+        submitIcon.classList.remove('hidden');
+        loadingSpinner.classList.add('hidden');
+      });
+    });
+    
   </script>
 </body>
 </html>
