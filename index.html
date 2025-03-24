@@ -358,6 +358,8 @@
     </div>
   </div>
 
+    
+
   <script>
     // Set current year in footer
     document.getElementById('current-year').textContent = new Date().getFullYear();
@@ -444,7 +446,16 @@
         loadingSpinner.classList.add('hidden');
       });
     });
-    
+
+  // แสดงฟอร์มหลังจากหน้าเว็บโหลดเสร็จ
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+      const contactForm = document.getElementById('contact-container');
+      if(contactForm) {
+        contactForm.style.opacity = '1';
+      }
+    }, 500);
+  });
   </script>
 </body>
 </html>
