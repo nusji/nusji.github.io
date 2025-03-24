@@ -397,57 +397,65 @@
     }, 5000);
 
     // Handle form submission with EmailJS
-    document.getElementById('contact-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Show loading state
-      const submitBtn = document.getElementById('submit-btn');
-      const submitText = document.getElementById('submit-text');
-      const submitIcon = document.getElementById('submit-icon');
-      const loadingSpinner = document.getElementById('loading-spinner');
-      const formSuccess = document.getElementById('form-success');
-      const formError = document.getElementById('form-error');
-      
-      submitBtn.disabled = true;
-      submitText.textContent = 'กำลังส่ง...';
-      submitIcon.classList.add('hidden');
-      loadingSpinner.classList.remove('hidden');
-      formError.classList.add('hidden');
-      
-      // Send to my email (main message)
-      emailjs.sendForm(
-        'service_gjqq5jm',   // Your Email Service ID
-        'template_inbeyvp', // Your Main Template ID
-        this
-      ).then(() => {
-        // Send auto-reply to user
-        const autoReplyParams = {
-          to_name: this.from_name.value,
-          to_email: this.from_email.value,
-          message: this.message.value
-        };
-        
-        return emailjs.send(
-          'service_gjqq5jm', 
-          'template_ysj7b7n', // Your Auto-Reply Template ID
-          autoReplyParams
-        );
-      }).then(() => {
-        // Show success message
-        formSuccess.classList.remove('hidden');
-        this.reset();
-      }).catch((error) => {
-        console.error('Failed:', error);
-        formError.textContent = 'เกิดข้อผิดพลาด: ' + (error.text || 'กรุณาลองใหม่ในภายหลัง');
-        formError.classList.remove('hidden');
-      }).finally(() => {
-        // Reset button state
-        submitBtn.disabled = false;
-        submitText.textContent = 'ส่งข้อความ';
-        submitIcon.classList.remove('hidden');
-        loadingSpinner.classList.add('hidden');
-      });
-    });
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  // Show loading state
+  const submitBtn = document.getElementById('submit-btn');
+  const submitText = document.getElementById('submit-text');
+  const submitIcon = document.getElementById('submit-icon');
+  const loadingSpinner = document.getElementById('loading-spinner');
+  const formSuccess = document.getElementById('form-success');
+  const formError = document.getElementById('form-error');
+  
+  submitBtn.disabled = true;
+  submitText.textContent = 'กำลังส่ง...';
+  submitIcon.classList.add('hidden');
+  loadingSpinner.classList.remove('hidden');
+  formError.classList.add('hidden');
+  
+  // Prepare parameters for both emails
+  const templateParams = {
+    from_name: this.from_name.value,
+    from_email: this.from_email.value,
+    message: this.message.value,
+    to_email: 'amindao.work@gmail.com' // ระบุ email ปลายทางโดยตรง
+  };
+  
+  const autoReplyParams = {
+    to_name: this.from_name.value,
+    to_email: this.from_email.value, // ใช้ email จากฟอร์มเป็นผู้รับ
+    message: this.message.value
+  };
+  
+  // Send to my email (main message)
+  emailjs.send(
+    'service_gjqq5jm',
+    'template_inbeyvp',
+    templateParams
+  ).then(() => {
+    // Send auto-reply to user
+    return emailjs.send(
+      'service_gjqq5jm', 
+      'template_ysj7b7n',
+      autoReplyParams
+    );
+  }).then(() => {
+    // Show success message
+    formSuccess.classList.remove('hidden');
+    this.reset();
+  }).catch((error) => {
+    console.error('Failed:', error);
+    formError.textContent = 'เกิดข้อผิดพลาด: ' + (error.text || 'กรุณาลองใหม่ในภายหลัง');
+    formError.classList.remove('hidden');
+  }).finally(() => {
+    // Reset button state
+    submitBtn.disabled = false;
+    submitText.textContent = 'ส่งข้อความ';
+    submitIcon.classList.remove('hidden');
+    loadingSpinner.classList.add('hidden');
+  });
+});
   </script>
 </body>
 </html>
