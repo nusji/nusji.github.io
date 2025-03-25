@@ -1,612 +1,1024 @@
 <!DOCTYPE html>
 <html lang="th">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NUSjI</title>
-  <!-- Prompt Font from Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- EmailJS SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script>
-    emailjs.init('f0ELdwDIeWR2W_qxO');
-  </script>
-  
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            prompt: ['Prompt', 'sans-serif'],
-          },
-          animation: {
-            'float': 'float 6s ease-in-out infinite',
-            'spin-slow': 'spin 8s linear infinite',
-            'typing': 'typing 3.5s steps(40, end) forwards',
-            'blink': 'blink 0.75s step-end infinite',
-            'fade-in': 'fadeIn 0.6s ease-out forwards',
-            'bounce': 'bounce 1s infinite',
-            'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-          },
-          keyframes: {
-            float: {
-              '0%, 100%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-10px)' },
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NUSjI</title>
+    <!-- Prompt Font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+      emailjs.init("f0ELdwDIeWR2W_qxO");
+    </script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              prompt: ["Prompt", "sans-serif"],
             },
-            typing: {
-              '0%': { width: '0%' },
-              '100%': { width: '100%' },
+            animation: {
+              float: "float 6s ease-in-out infinite",
+              "spin-slow": "spin 8s linear infinite",
+              typing: "typing 3.5s steps(40, end) forwards",
+              blink: "blink 0.75s step-end infinite",
+              "fade-in": "fadeIn 0.6s ease-out forwards",
+              bounce: "bounce 1s infinite",
+              pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
             },
-            blink: {
-              '0%, 100%': { borderColor: 'transparent' },
-              '50%': { borderColor: 'currentColor' },
-            },
-            fadeIn: {
-              'from': { opacity: '0', transform: 'translateY(10px)' },
-              'to': { opacity: '1', transform: 'translateY(0)' },
-            },
-            bounce: {
-              '0%, 100%': {
-                transform: 'translateY(-25%)',
-                animationTimingFunction: 'cubic-bezier(0.8,0,1,1)'
+            keyframes: {
+              float: {
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-10px)" },
               },
-              '50%': {
-                transform: 'translateY(0)',
-                animationTimingFunction: 'cubic-bezier(0,0,0.2,1)'
-              }
+              typing: {
+                "0%": { width: "0%" },
+                "100%": { width: "100%" },
+              },
+              blink: {
+                "0%, 100%": { borderColor: "transparent" },
+                "50%": { borderColor: "currentColor" },
+              },
+              fadeIn: {
+                from: { opacity: "0", transform: "translateY(10px)" },
+                to: { opacity: "1", transform: "translateY(0)" },
+              },
+              bounce: {
+                "0%, 100%": {
+                  transform: "translateY(-25%)",
+                  animationTimingFunction: "cubic-bezier(0.8,0,1,1)",
+                },
+                "50%": {
+                  transform: "translateY(0)",
+                  animationTimingFunction: "cubic-bezier(0,0,0.2,1)",
+                },
+              },
+              pulse: {
+                "0%, 100%": { opacity: 1 },
+                "50%": { opacity: 0.5 },
+              },
             },
-            pulse: {
-              '0%, 100%': { opacity: 1 },
-              '50%': { opacity: .5 }
-            }
           },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Prompt", sans-serif;
+        overflow-x: hidden;
+        background-color: #121212;
+      }
+
+      .bg-gradient-cool {
+        background: linear-gradient(
+          to bottom right,
+          rgba(0, 0, 0, 0.9),
+          rgba(16, 64, 32, 0.8),
+          rgba(0, 0, 0, 0.7)
+        );
+      }
+
+      .glass-card {
+        background-color: rgba(16, 32, 16, 0.15);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(64, 255, 128, 0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2),
+          0 0 10px rgba(64, 255, 128, 0.05);
+      }
+
+      .glass-button {
+        background-color: rgba(32, 64, 32, 0.2);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border: 1px solid rgba(64, 255, 128, 0.2);
+        transition: all 0.3s;
+      }
+
+      .glass-button:hover {
+        background-color: rgba(64, 255, 128, 0.2);
+        box-shadow: 0 0 12px rgba(64, 255, 128, 0.3);
+      }
+
+      .text-gradient {
+        background: linear-gradient(to right, #4ade80, #22c55e);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .typing-container {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      .typing-text {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 2px solid;
+        opacity: 0;
+        animation: typing 3.5s steps(40, end) forwards,
+          blink 0.75s step-end infinite;
+        animation-fill-mode: forwards;
+      }
+
+      .loader {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(64, 255, 128, 0.2);
+        border-radius: 50%;
+        border-top-color: #4ade80;
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
         }
       }
-    }
-  </script>
-  <style>
-    body {
-      font-family: 'Prompt', sans-serif;
-      overflow-x: hidden;
-      background-color: #121212;
-    }
-    
-    .bg-gradient-cool {
-      background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.9), rgba(16, 64, 32, 0.8), rgba(0, 0, 0, 0.7));
-    }
-    
-    .glass-card {
-      background-color: rgba(16, 32, 16, 0.15);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(64, 255, 128, 0.1);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 0 10px rgba(64, 255, 128, 0.05);
-    }
-    
-    .glass-button {
-      background-color: rgba(32, 64, 32, 0.2);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      border: 1px solid rgba(64, 255, 128, 0.2);
-      transition: all 0.3s;
-    }
-    
-    .glass-button:hover {
-      background-color: rgba(64, 255, 128, 0.2);
-      box-shadow: 0 0 12px rgba(64, 255, 128, 0.3);
-    }
-    
-    .text-gradient {
-      background: linear-gradient(to right, #4ade80, #22c55e);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .typing-container {
-      display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-    
-    .typing-text {
-      display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 2px solid;
-      opacity: 0;
-      animation: typing 3.5s steps(40, end) forwards, blink 0.75s step-end infinite;
-      animation-fill-mode: forwards;
-    }
-    
-    .loader {
-      width: 40px;
-      height: 40px;
-      border: 3px solid rgba(64, 255, 128, 0.2);
-      border-radius: 50%;
-      border-top-color: #4ade80;
-      animation: spin 1s ease-in-out infinite;
-    }
-    
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
       }
-    }
-    
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
-    }
-    
-    .fade-in {
-      opacity: 0;
-      animation: fadeIn 1s ease-in-out forwards;
-    }
-    
-    @keyframes fadeIn {
-      from {
+
+      .fade-in {
         opacity: 0;
-        transform: translateY(10px);
+        animation: fadeIn 1s ease-in-out forwards;
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
-    }
-    
-    .fade-in-delay-1 {
-      animation-delay: 0.2s;
-    }
-    
-    .fade-in-delay-2 {
-      animation-delay: 0.4s;
-    }
-    
-    .fade-in-delay-3 {
-      animation-delay: 0.6s;
-    }
-    
-    .fade-in-delay-4 {
-      animation-delay: 0.8s;
-    }
 
-    .emoji-bounce {
-      animation: bounce 2s ease infinite;
-    }
-
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
+      .fade-in-delay-1 {
+        animation-delay: 0.2s;
       }
-      40% {
-        transform: translateY(-20px);
+
+      .fade-in-delay-2 {
+        animation-delay: 0.4s;
       }
-      60% {
-        transform: translateY(-10px);
+
+      .fade-in-delay-3 {
+        animation-delay: 0.6s;
       }
-    }
-    
-    .fun-pattern {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-image: radial-gradient(rgba(64, 255, 128, 0.1) 2px, transparent 2px);
-      background-size: 30px 30px;
-      pointer-events: none;
-      opacity: 0.5;
-    }
 
-/* เพิ่มสไตล์สำหรับปุ่มเปลี่ยนภาษา */
-.language-switcher {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 20;
-    }
-    
-    .language-btn {
-      background-color: rgba(32, 64, 32, 0.3);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(64, 255, 128, 0.3);
-      color: #4ade80;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    
-    .language-btn:hover {
-      background-color: rgba(64, 255, 128, 0.2);
-    }
-    
-    /* ซ่อนเนื้อหาภาษาอังกฤษโดย default */
-    .lang-en {
-      display: none;
-    }
-    
-    /* เมื่ออยู่ในโหมดภาษาอังกฤษ */
-    body.english-mode .lang-th {
-      display: none;
-    }
-    
-    body.english-mode .lang-en {
-      display: block;
-    }
+      .fade-in-delay-4 {
+        animation-delay: 0.8s;
+      }
 
+      .emoji-bounce {
+        animation: bounce 2s ease infinite;
+      }
 
-  </style>
-</head>
-<body class="font-prompt">
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-20px);
+        }
+        60% {
+          transform: translateY(-10px);
+        }
+      }
 
-  <!-- ปุ่มเปลี่ยนภาษา -->
-  <div class="language-switcher">
-    <button id="language-btn" class="language-btn flex items-center">
-      <span class="lang-th">EN</span>
-      <span class="lang-en">ไทย</span>
-    </button>
-  </div>
+      .fun-pattern {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(
+          rgba(64, 255, 128, 0.1) 2px,
+          transparent 2px
+        );
+        background-size: 30px 30px;
+        pointer-events: none;
+        opacity: 0.5;
+      }
 
-  <div class="relative min-h-screen overflow-hidden bg-gradient-cool flex items-center justify-center">
-    <!-- Fun pattern background -->
-    <div class="fun-pattern"></div>
-    
-    <!-- Background floating elements -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-      <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-green-500/5 backdrop-blur-sm" style="animation: float 6s ease-in-out infinite;"></div>
-      <div class="absolute bottom-1/3 right-1/3 w-96 h-96 rounded-full bg-green-500/5 backdrop-blur-sm" style="animation: float 6s ease-in-out 1s infinite;"></div>
-      <div class="absolute top-2/3 left-1/3 w-48 h-48 rounded-full bg-green-500/5 backdrop-blur-sm" style="animation: float 6s ease-in-out 2s infinite;"></div>
+      /* เพิ่มสไตล์สำหรับปุ่มเปลี่ยนภาษา */
+      .language-switcher {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 20;
+      }
+
+      .language-btn {
+        background-color: rgba(32, 64, 32, 0.3);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(64, 255, 128, 0.3);
+        color: #4ade80;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .language-btn:hover {
+        background-color: rgba(64, 255, 128, 0.2);
+      }
+
+      /* ซ่อนเนื้อหาภาษาอังกฤษโดย default */
+      .lang-en {
+        display: none;
+      }
+
+      /* เมื่ออยู่ในโหมดภาษาอังกฤษ */
+      body.english-mode .lang-th {
+        display: none;
+      }
+
+      body.english-mode .lang-en {
+        display: block;
+      }
+    </style>
+  </head>
+  <body class="font-prompt">
+    <!-- ปุ่มเปลี่ยนภาษา -->
+    <div class="language-switcher">
+      <button id="language-btn" class="language-btn flex items-center">
+        <span class="lang-th">EN</span>
+        <span class="lang-en">ไทย</span>
+      </button>
     </div>
 
-    <!-- Content container -->
-    <div class="container mx-auto px-4 z-10">
-      <div class="max-w-3xl mx-auto">
-        <div class="glass-card rounded-2xl p-8 md:p-12">
-          <!-- Main heading with typing effect -->
-          <div class="mb-8 text-center">
-            <div class="text-xs font-mono tracking-widest text-green-400/60 uppercase mb-2 fade-in lang-th">
-              ว้า! เจอผมละ
-            </div>
-            <div class="text-xs font-mono tracking-widest text-green-400/60 uppercase mb-2 fade-in lang-en">
-              Oh! You found me
-            </div>
-            <h1 class="typing-container mb-2">
-              <span class="typing-text text-gradient text-3xl md:text-4xl font-bold lang-th">
-                ขออภัยด้วยนะ เว็บกำลังเล่นซ่อนแอบอยู่ฮะ
-              </span>
-              <span class="typing-text text-gradient text-3xl md:text-4xl font-bold lang-en">
-                Sorry about this, the website is playing hide and seek
-              </span>
-            </h1>
-            
-            <p id="subtitle" class="text-green-200/80 mt-6 text-sm md:text-base opacity-0 transition-opacity duration-500 lang-th">
-              ผมกำลังทุบแล้วสร้างใหม่ ให้มันเจ๋งขึ้นกว่าเดิม แวะมาใหม่เร็วๆ นี้นะ!
-            </p>
-            <p id="subtitle-en" class="text-green-200/80 mt-6 text-sm md:text-base opacity-0 transition-opacity duration-500 lang-en">
-              I'm rebuilding it to be even better. Please check back soon!
-            </p>
-          </div>
+    <div
+      class="relative min-h-screen overflow-hidden bg-gradient-cool flex items-center justify-center"
+    >
+      <!-- Fun pattern background -->
+      <div class="fun-pattern"></div>
 
-          <!-- Fun emoji section -->
-          <div id="fun-container" class="my-10 opacity-0 transition-opacity duration-500">
-            <div class="flex flex-col items-center justify-center space-y-4">
-              <div id="emoji" class="text-5xl md:text-7xl emoji-bounce mb-4">
-                🚧
-              </div>
-              <div class="bg-green-900/20 backdrop-blur-md rounded-lg py-3 px-6 max-w-md text-center border border-green-500/20">
-                <p id="funny-message" class="text-green-100/90 text-lg font-medium">กำลังเขียนโค้ดแบบหลับตา... 😴</p>
-              </div>
-            </div>
-          </div>
+      <!-- Background floating elements -->
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-green-500/5 backdrop-blur-sm"
+          style="animation: float 6s ease-in-out infinite"
+        ></div>
+        <div
+          class="absolute bottom-1/3 right-1/3 w-96 h-96 rounded-full bg-green-500/5 backdrop-blur-sm"
+          style="animation: float 6s ease-in-out 1s infinite"
+        ></div>
+        <div
+          class="absolute top-2/3 left-1/3 w-48 h-48 rounded-full bg-green-500/5 backdrop-blur-sm"
+          style="animation: float 6s ease-in-out 2s infinite"
+        ></div>
+      </div>
 
-          <!-- Fun tools animation -->
-          <div id="tools-container" class="flex justify-center space-x-8 my-8 opacity-0 transition-opacity duration-500">
-            <div style="animation: spin 8s linear infinite; opacity: 0.8;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l-3.2 3.2M18 8l.4-.4a2 2 0 0 0-2.8-2.8l-.4.4M14 20l3.2-3.2M18 16l.4.4a2 2 0 0 1-2.8 2.8l-.4-.4M4 14l3.2-3.2M4 14l3.2 3.2M8 18l-.4.4a2 2 0 0 1-2.8-2.8l.4-.4M8 6l-.4-.4a2 2 0 0 0-2.8 2.8l.4.4"></path></svg>
-            </div>
-            <div style="animation: bounce 1s infinite; animation-delay: 100ms; opacity: 0.8;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 12l-8.5 8.5c-.83.83-2.17.83-3 0 0 0 0 0 0 0a2.12 2.12 0 0 1 0-3L12 9"></path><path d="M17.64 15 22 10.64"></path><path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"></path></svg>
-            </div>
-            <div style="animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; animation-delay: 200ms; opacity: 0.8;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"></path><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path><line x1="6" x2="6" y1="2" y2="4"></line><line x1="10" x2="10" y1="2" y2="4"></line><line x1="14" x2="14" y1="2" y2="4"></line></svg>
-            </div>
-            <div style="animation: spin 8s linear infinite; animation-delay: 300ms; opacity: 0.8;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
-            </div>
-          </div>
+      <!-- Content container -->
+      <div class="container mx-auto px-4 z-10">
+        <div class="max-w-3xl mx-auto">
+          <div class="glass-card rounded-2xl p-8 md:p-12">
+            <!-- Main heading with typing effect -->
+            <div class="mb-8 text-center">
+              <div
+                class="text-xs font-mono tracking-widest text-green-400/60 uppercase mb-2 fade-in lang-th"
+              >
+                ว้า! เจอผมละ
+              </div>
+              <div
+                class="text-xs font-mono tracking-widest text-green-400/60 uppercase mb-2 fade-in lang-en"
+              >
+                Oh! You found me
+              </div>
+              <h1 class="typing-container mb-2">
+                <span
+                  class="typing-text text-gradient text-3xl md:text-4xl font-bold lang-th"
+                >
+                  ขออภัยด้วยนะ เว็บกำลังเล่นซ่อนแอบอยู่ฮะ
+                </span>
+                <span
+                  class="typing-text text-gradient text-3xl md:text-4xl font-bold lang-en"
+                >
+                  Sorry about this, the website is playing hide and seek
+                </span>
+              </h1>
 
-          <!-- ส่วนแนะนำตัวแบบย่อ -->
-          <div id="about-container" class="my-10 opacity-0 transition-opacity duration-500">
-            <div class="text-center mb-6">
-              <div class="text-xs font-mono tracking-widest text-green-400/60 uppercase mb-2 lang-th">
-                เกี่ยวกับฉัน
-              </div>
-              <div class="text-xs font-mono tracking-widest text-green-400/60 uppercase mb-2 lang-en">
-                About Me
-              </div>
-              <h2 class="text-gradient text-2xl md:text-3xl font-bold">
-                <span class="lang-th">อามีนดาโอะ (Amin Daoh)</span>
-                <span class="lang-en">Amin Daoh (@nusji)</span>
-              </h2>
+              <p
+                id="subtitle"
+                class="text-green-200/80 mt-6 text-sm md:text-base opacity-0 transition-opacity duration-500 lang-th"
+              >
+                ผมกำลังทุบแล้วสร้างใหม่ ให้มันเจ๋งขึ้นกว่าเดิม แวะมาใหม่เร็วๆ
+                นี้นะ!
+              </p>
+              <p
+                id="subtitle-en"
+                class="text-green-200/80 mt-6 text-sm md:text-base opacity-0 transition-opacity duration-500 lang-en"
+              >
+                I'm rebuilding it to be even better. Please check back soon!
+              </p>
             </div>
-            
-            <div class="bg-green-900/10 backdrop-blur-sm rounded-xl p-6 border border-green-500/20 text-center">
-              <div class="flex justify-center mb-4">
-                <div class="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center">
-                  <span class="text-3xl">👋</span>
+
+            <!-- Fun emoji section -->
+            <div
+              id="fun-container"
+              class="my-10 opacity-0 transition-opacity duration-500"
+            >
+              <div class="flex flex-col items-center justify-center space-y-4">
+                <div id="emoji" class="text-5xl md:text-7xl emoji-bounce mb-4">
+                  🚧
+                </div>
+                <div
+                  class="bg-green-900/20 backdrop-blur-md rounded-lg py-3 px-6 max-w-md text-center border border-green-500/20"
+                >
+                  <p
+                    id="funny-message"
+                    class="text-green-100/90 text-lg font-medium"
+                  >
+                    กำลังเขียนโค้ดแบบหลับตา... 😴
+                  </p>
                 </div>
               </div>
-              
-              <div class="lang-th">
-                <p class="text-green-200 mb-3">นักศึกษาสาขาคอมพิวเตอร์และวิทยาการสารสนเทศเพื่อการจัดการ</p>
-                <p class="text-green-300/90 text-sm">สนใจด้าน Network Engineering และ Systems Administration</p>
-                <p class="text-green-400/60 text-xs mt-4">#NetworkEngineering #SystemsAdmin</p>
-              </div>
-              
-              <div class="lang-en">
-                <p class="text-green-200 mb-3">Computer and Information Sciences Student</p>
-                <p class="text-green-300/90 text-sm">Passionate about Network Engineering & Systems Administration</p>
-                <p class="text-green-400/60 text-xs mt-4">#TechEnthusiast #ContinuousLearner</p>
-              </div>
-              
-              <button id="show-more-btn" class="mt-4 text-green-400 text-xs hover:underline lang-th">
-                แสดงเพิ่มเติม...
-              </button>
-              <button id="show-more-btn-en" class="mt-4 text-green-400 text-xs hover:underline lang-en">
-                Show more...
-              </button>
             </div>
-          </div>
 
-          <!-- ส่วนข้อมูลเพิ่มเติม (ซ่อนไว้ก่อน) -->
-          <div id="more-info" class="hidden my-6 bg-green-900/10 backdrop-blur-sm rounded-xl p-6 border border-green-500/20">
-            <div class="lang-th">
-              <h3 class="text-green-300 font-medium mb-3">ข้อมูลเพิ่มเติม:</h3>
-              <ul class="space-y-2 text-green-200/80 text-sm">
-                <li>🎓 มหาวิทยาลัยสงขลานครินทร์</li>
-                <li>🔧 Network Design, Server Management, Cybersecurity</li>
-                <li>⛰️ ชอบเดินป่า ฝึกการแก้ปัญหาเหมือนทำงานเครือข่าย</li>
-              </ul>
-            </div>
-            <div class="lang-en">
-              <h3 class="text-green-300 font-medium mb-3">More Details:</h3>
-              <ul class="space-y-2 text-green-200/80 text-sm">
-                <li>🎓 Prince of Songkla University</li>
-                <li>🔧 Network Design, Server Management, Cybersecurity</li>
-                <li>⛰️ Enjoy hiking - similar problem-solving to networking</li>
-              </ul>
-            </div>
-            
-            <button id="show-less-btn" class="mt-4 text-green-400 text-xs hover:underline lang-th">
-              แสดงน้อยลง
-            </button>
-            <button id="show-less-btn-en" class="mt-4 text-green-400 text-xs hover:underline lang-en">
-              Show less
-            </button>
-          </div>
-
-          <!-- Social links -->
-          <div id="social-container" class="flex justify-center space-x-6 opacity-0 transition-opacity duration-500">
-            <a href="https://github.com/nusji" target="_blank" rel="noopener noreferrer" class="glass-button group flex items-center space-x-2 rounded-full p-3 fade-in fade-in-delay-1" aria-label="GitHub">
-              <span class="text-green-400/90 group-hover:text-green-400 transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-              </span>
-            </a>
-            <a href="https://linkedin.com/in/amin-dao-3842a0343" target="_blank" rel="noopener noreferrer" class="glass-button group flex items-center space-x-2 rounded-full p-3 fade-in fade-in-delay-3" aria-label="LinkedIn">
-              <span class="text-green-400/90 group-hover:text-green-400 transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-              </span>
-            </a>
-          </div>
-
-          <!-- Contact Form -->
-          <div id="contact-container" class="mt-12 border-t border-green-500/10 pt-8 opacity-0 transition-opacity duration-500">
-            <div class="text-center mb-4">
-              <h3 class="text-green-300 text-sm font-semibold mb-1">อยากคุยกับฉันไหม?</h3>
-              <p class="text-green-400/60 text-xs">ทิ้งข้อความไว้ แล้วฉันจะติดต่อกลับไป!</p>
-            </div>
-            <form id="contact-form" class="max-w-md mx-auto space-y-4">
-              <!-- Name -->
-              <div>
-                <input
-                  type="text"
-                  name="from_name"
-                  id="from_name"
-                  placeholder="ชื่อของคุณ (เรียกฉันว่าอะไรก็ได้)"
-                  required
-                  class="w-full px-4 py-2 rounded-md bg-black/20 backdrop-blur-md border border-green-500/20 text-white placeholder:text-green-400/40 focus:outline-none focus:ring-2 focus:ring-green-500/30"
-                />
+            <!-- Fun tools animation -->
+            <div
+              id="tools-container"
+              class="flex justify-center space-x-8 my-8 opacity-0 transition-opacity duration-500"
+            >
+              <div style="animation: spin 8s linear infinite; opacity: 0.8">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#4ade80"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M14 4l-3.2 3.2M18 8l.4-.4a2 2 0 0 0-2.8-2.8l-.4.4M14 20l3.2-3.2M18 16l.4.4a2 2 0 0 1-2.8 2.8l-.4-.4M4 14l3.2-3.2M4 14l3.2 3.2M8 18l-.4.4a2 2 0 0 1-2.8-2.8l.4-.4M8 6l-.4-.4a2 2 0 0 0-2.8 2.8l.4.4"
+                  ></path>
+                </svg>
               </div>
-              
-              <!-- Email -->
-              <div>
-                <input
-                  type="email"
-                  name="from_email"
-                  id="from_email"
-                  placeholder="อีเมลของคุณ (จะได้ติดต่อกลับได้)"
-                  required
-                  class="w-full px-4 py-2 rounded-md bg-black/20 backdrop-blur-md border border-green-500/20 text-white placeholder:text-green-400/40 focus:outline-none focus:ring-2 focus:ring-green-500/30"
-                />
-              </div>
-              
-              <!-- Message -->
-              <div>
-                <textarea
-                  name="message"
-                  id="message"
-                  rows="4"
-                  placeholder="อยากบอกอะไรฉันไหม? หรือแค่อยากทักทายก็ได้นะ :)"
-                  required
-                  class="w-full px-4 py-2 rounded-md bg-black/20 backdrop-blur-md border border-green-500/20 text-white placeholder:text-green-400/40 focus:outline-none focus:ring-2 focus:ring-green-500/30"
-                ></textarea>
-              </div>
-              
-              <!-- Submit Button -->
-              <button
-                type="submit"
-                class="w-full px-6 py-2 rounded-md bg-green-600 text-black font-medium hover:bg-green-500 transition-colors duration-300 flex items-center justify-center gap-1"
-                id="submit-btn"
+              <div
+                style="
+                  animation: bounce 1s infinite;
+                  animation-delay: 100ms;
+                  opacity: 0.8;
+                "
               >
-                <span id="submit-text">ส่งข้อความ</span>
-                <svg id="submit-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#000" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-black"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg>
-                <svg id="loading-spinner" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden animate-spin"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></svg>
-              </button>
-            </form>
-            
-            <!-- Status Messages -->
-            <div id="form-success" class="hidden mt-3 text-center">
-              <p class="text-green-400 text-sm">ขอบคุณสำหรับข้อความ! ฉันจะรีบติดต่อกลับไปเร็วๆ นี้</p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#4ade80"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M15 12l-8.5 8.5c-.83.83-2.17.83-3 0 0 0 0 0 0 0a2.12 2.12 0 0 1 0-3L12 9"
+                  ></path>
+                  <path d="M17.64 15 22 10.64"></path>
+                  <path
+                    d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"
+                  ></path>
+                </svg>
+              </div>
+              <div
+                style="
+                  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+                  animation-delay: 200ms;
+                  opacity: 0.8;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#4ade80"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M17 8h1a4 4 0 1 1 0 8h-1"></path>
+                  <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path>
+                  <line x1="6" x2="6" y1="2" y2="4"></line>
+                  <line x1="10" x2="10" y1="2" y2="4"></line>
+                  <line x1="14" x2="14" y1="2" y2="4"></line>
+                </svg>
+              </div>
+              <div
+                style="
+                  animation: spin 8s linear infinite;
+                  animation-delay: 300ms;
+                  opacity: 0.8;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#4ade80"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"
+                  ></path>
+                  <path d="M5 3v4"></path>
+                  <path d="M19 17v4"></path>
+                  <path d="M3 5h4"></path>
+                  <path d="M17 19h4"></path>
+                </svg>
+              </div>
             </div>
-            <div id="form-error" class="hidden mt-3 text-center">
-              <p class="text-red-400 text-sm">อุ๊ปส์! เกิดข้อผิดพลาด ลองส่งอีกครั้งหรือติดต่อฉันทางอีเมลโดยตรงนะ</p>
-            </div>
-          </div>
 
-          <!-- Footer -->
-          <div class="mt-8 text-center fade-in fade-in-delay-3">
-            <p class="text-green-400/50 text-xs">© <span id="current-year"></span> ทำด้วยความรักและคาเฟอีนเยอะมาก 💚</p>
+            <!-- ส่วนแนะนำตัวแบบย่อ -->
+            <div
+              id="about-container"
+              class="my-10 opacity-0 transition-opacity duration-500"
+            >
+              <div class="text-center mb-6">
+                <div
+                  class="text-xs font-mono tracking-widest text-green-400/60 uppercase mb-2 lang-th"
+                >
+                  เกี่ยวกับฉัน
+                </div>
+                <div
+                  class="text-xs font-mono tracking-widest text-green-400/60 uppercase mb-2 lang-en"
+                >
+                  About Me
+                </div>
+                <h2 class="text-gradient text-2xl md:text-3xl font-bold">
+                  <span class="lang-th">อามีนดาโอะ (Amin Daoh)</span>
+                  <span class="lang-en">Amin Daoh (@nusji)</span>
+                </h2>
+              </div>
+
+              <div
+                class="bg-green-900/10 backdrop-blur-sm rounded-xl p-6 border border-green-500/20 text-center"
+              >
+                <div class="flex justify-center mb-4">
+                  <div
+                    class="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center"
+                  >
+                    <span class="text-3xl">👋</span>
+                  </div>
+                </div>
+
+                <div class="lang-th">
+                  <p class="text-green-200 mb-3">
+                    นักศึกษาสาขาคอมพิวเตอร์และวิทยาการสารสนเทศเพื่อการจัดการ
+                  </p>
+                  <p class="text-green-300/90 text-sm">
+                    สนใจด้าน Network Engineer, System Engineer, System
+                    Administration และ Data Analysis
+                  </p>
+                  <p class="text-green-400/60 text-xs mt-4">
+                    #NetworkEngineer #SystemEngineer #SysAdmin #DataAnalysis
+                  </p>
+                </div>
+
+                <div class="lang-en">
+                  <p class="text-green-200 mb-3">
+                    Computer and Information Sciences Student
+                  </p>
+                  <p class="text-green-300/90 text-sm">
+                    Passionate about Network Engineering, System Engineering,
+                    System Administration & Data Analysis
+                  </p>
+                  <p class="text-green-400/60 text-xs mt-4">
+                    #NetworkEngineer #SysEng #SysAdmin #DataAnalyst
+                  </p>
+                </div>
+
+                <button
+                  id="show-more-btn"
+                  class="mt-4 text-green-400 text-xs hover:underline lang-th"
+                >
+                  แสดงเพิ่มเติม...
+                </button>
+                <button
+                  id="show-more-btn-en"
+                  class="mt-4 text-green-400 text-xs hover:underline lang-en"
+                >
+                  Show more...
+                </button>
+              </div>
+            </div>
+
+            <!-- ส่วนข้อมูลเพิ่มเติม (ซ่อนไว้ก่อน) -->
+            <div
+              id="more-info"
+              class="hidden my-6 bg-green-900/10 backdrop-blur-sm rounded-xl p-6 border border-green-500/20"
+            >
+              <div class="lang-th">
+                <h3 class="text-green-300 font-medium mb-3">
+                  รายละเอียดเพิ่มเติม:
+                </h3>
+                <div class="space-y-3 text-green-200/80 text-sm">
+                  <p>
+                    👀 ผมเป็นคนที่หลงใหลในงาน Network Engineering และ System
+                    Administration
+                    ชอบออกแบบและปรับแต่งระบบเครือข่ายให้ทำงานได้ดีที่สุด
+                    อีกทั้งยังชอบแก้ปัญหาเครือข่ายที่ยากๆ อีกด้วย!
+                    แล็วก็ชอบเรียนรู้สิ่งใหม่ๆ จากโปรเจ็คจริงๆ มากกว่าหนังสือ
+                  </p>
+
+                  <p>
+                    🎓 จบศึกษาที่ที่มหาวิทยาลัยสงขลานครินทร์
+                    สาขาคอมพิวเตอร์และวิทยาการสารสนเทศเพื่อการจัดการ
+                    และกำลังมองหาโอกาสในการทำงานในสาขาที่สนใจ
+                  </p>
+
+                  <p>
+                    💞️ ผมมองหาโอกาสในการร่วมงานกับโปรเจคที่น่าสนใจ
+                    ทั้งด้านเครือข่าย ความปลอดภัย และระบบอัตโนมัติ
+                    ชอบทำงานเป็นทีมและเรียนรู้สิ่งใหม่ๆ 
+                  </p>
+
+                  <div class="mt-4">
+                    <h4 class="text-green-300 font-medium mb-2">
+                      🌟 สิ่งที่ผมถนัด :
+                    </h4>
+                    <ul class="list-disc list-inside space-y-1">
+                      <li>การออกแบบและติดตั้งระบบเครือข่าย</li>
+                      <li>การดูแลระบบเซิร์ฟเวอร์</li>
+                      <li>ระบบความปลอดภัย</li>
+                      <li>เครือข่ายอัตโนมัติ</li>
+                      <li>แก้ไขปัญหาและปรับปรุงระบบ</li>
+                    </ul>
+                  </div>
+
+                  <div class="mt-4">
+                    <h4 class="text-green-300 font-medium mb-2">
+                      📫 ติดต่อผมได้ที่:
+                    </h4>
+                    <p>อีเมล: amindao.work@gmail.com</p>
+                    <p>
+                      LinkedIn:
+                      <a
+                        href="https://linkedin.com/in/amin-dao-3842a0343"
+                        target="_blank"
+                        class="text-green-400 hover:underline"
+                        >Amin Dao</a
+                      >
+                    </p>
+                  </div>
+
+                  <p class="mt-4">
+                    ⚡ นอกเวลาทำงาน: ผมชอบไปเดินป่า
+                    การแก้ปัญหาการเดินทางในป่าก็เหมือนกับการแก้ปัญหาเครือข่ายนั่นแหละ!
+                  </p>
+
+                  <p class="text-green-400/60 mt-4">
+                    #วิศวกรรมเครือข่าย #ดูแลระบบ #ชอบเรียนรู้ #คนรักเทคโนโลยี
+                  </p>
+                </div>
+              </div>
+
+              <div class="lang-en">
+                <h3 class="text-green-300 font-medium mb-3">
+                  Get to know me better
+                </h3>
+                <div class="space-y-3 text-green-200/80 text-sm">
+                  <p>
+                    Hey there! 👋 I'm Amin, a networking geek who loves building
+                    and fixing network systems. Nothing makes me happier than
+                    solving those tricky network puzzles!
+                  </p>
+
+                  <p>
+                    I'm graduating from Prince of Songkla University
+                    with a degree in Computer and Information Sciences
+                    I'm always looking for new challenges and learning
+                  </p>
+
+                  <p>
+                    💞️ Looking to team up with cool people on network projects -
+                    whether it's setting up secure systems or automating boring
+                    tasks. Hit me up if you want to brainstorm ideas together!
+                  </p>
+                  <div class="mt-4">
+                    <h4 class="text-green-300 font-medium mb-2">
+                      🌟 What I Do Best:
+                    </h4>
+                    <ul class="list-disc list-inside space-y-1">
+                      <li>Network Design & Implementation</li>
+                      <li>Systems Administration</li>
+                      <li>Security Infrastructure</li>
+                      <li>Network Automation</li>
+                      <li>Troubleshooting & Optimization</li>
+                    </ul>
+                  </div>
+
+                  <div class="mt-4">
+                    <h4 class="text-green-300 font-medium mb-2">
+                      📫 Let's Connect:
+                    </h4>
+                    <p>Email: amindao.work@gmail.com</p>
+                    <p>
+                      LinkedIn:
+                      <a
+                        href="https://linkedin.com/in/amin-dao-3842a0343"
+                        target="_blank"
+                        class="text-green-400 hover:underline"
+                        >Amin Dao</a
+                      >
+                    </p>
+                  </div>
+
+                  <p class="mt-4">
+                    ⚡ Beyond tech: When I'm not working with networks, you'll
+                    find me hiking. Conquering trails gives me the same thrill
+                    as solving complex network problems!
+                  </p>
+
+                  <p class="text-green-400/60 mt-4">
+                    #NetworkEngineering #SysAdmin #TechEnthusiast
+                    #ContinuousLearner
+                  </p>
+                </div>
+              </div>
+
+              <button
+                id="show-less-btn"
+                class="mt-4 text-green-400 text-xs hover:underline lang-th"
+              >
+                แสดงน้อยลง
+              </button>
+              <button
+                id="show-less-btn-en"
+                class="mt-4 text-green-400 text-xs hover:underline lang-en"
+              >
+                Show less
+              </button>
+            </div>
+
+            <!-- Social links -->
+            <div
+              id="social-container"
+              class="flex justify-center space-x-6 opacity-0 transition-opacity duration-500"
+            >
+              <a
+                href="https://github.com/nusji"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="glass-button group flex items-center space-x-2 rounded-full p-3 fade-in fade-in-delay-1"
+                aria-label="GitHub"
+              >
+                <span
+                  class="text-green-400/90 group-hover:text-green-400 transition-colors duration-300"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-github"
+                  >
+                    <path
+                      d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+                    ></path>
+                    <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                  </svg>
+                </span>
+              </a>
+              <a
+                href="https://linkedin.com/in/amin-dao-3842a0343"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="glass-button group flex items-center space-x-2 rounded-full p-3 fade-in fade-in-delay-3"
+                aria-label="LinkedIn"
+              >
+                <span
+                  class="text-green-400/90 group-hover:text-green-400 transition-colors duration-300"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-linkedin"
+                  >
+                    <path
+                      d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                    ></path>
+                    <rect width="4" height="12" x="2" y="9"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                </span>
+              </a>
+            </div>
+
+            <!-- Contact Form -->
+            <div
+              id="contact-container"
+              class="mt-12 border-t border-green-500/10 pt-8 opacity-0 transition-opacity duration-500"
+            >
+              <div class="text-center mb-4">
+                <h3 class="text-green-300 text-sm font-semibold mb-1">
+                  อยากคุยกับฉันไหม?
+                </h3>
+                <p class="text-green-400/60 text-xs">
+                  ทิ้งข้อความไว้ แล้วฉันจะติดต่อกลับไป!
+                </p>
+              </div>
+              <form id="contact-form" class="max-w-md mx-auto space-y-4">
+                <!-- Name -->
+                <div>
+                  <input
+                    type="text"
+                    name="from_name"
+                    id="from_name"
+                    placeholder="ชื่อของคุณ (เรียกฉันว่าอะไรก็ได้)"
+                    required
+                    class="w-full px-4 py-2 rounded-md bg-black/20 backdrop-blur-md border border-green-500/20 text-white placeholder:text-green-400/40 focus:outline-none focus:ring-2 focus:ring-green-500/30"
+                  />
+                </div>
+
+                <!-- Email -->
+                <div>
+                  <input
+                    type="email"
+                    name="from_email"
+                    id="from_email"
+                    placeholder="อีเมลของคุณ (จะได้ติดต่อกลับได้)"
+                    required
+                    class="w-full px-4 py-2 rounded-md bg-black/20 backdrop-blur-md border border-green-500/20 text-white placeholder:text-green-400/40 focus:outline-none focus:ring-2 focus:ring-green-500/30"
+                  />
+                </div>
+
+                <!-- Message -->
+                <div>
+                  <textarea
+                    name="message"
+                    id="message"
+                    rows="4"
+                    placeholder="อยากบอกอะไรฉันไหม? หรือแค่อยากทักทายก็ได้นะ :)"
+                    required
+                    class="w-full px-4 py-2 rounded-md bg-black/20 backdrop-blur-md border border-green-500/20 text-white placeholder:text-green-400/40 focus:outline-none focus:ring-2 focus:ring-green-500/30"
+                  ></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                  type="submit"
+                  class="w-full px-6 py-2 rounded-md bg-green-600 text-black font-medium hover:bg-green-500 transition-colors duration-300 flex items-center justify-center gap-1"
+                  id="submit-btn"
+                >
+                  <span id="submit-text">ส่งข้อความ</span>
+                  <svg
+                    id="submit-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="#000"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="text-black"
+                  >
+                    <path d="M22 2 11 13" />
+                    <path d="m22 2-7 20-4-9-9-4Z" />
+                  </svg>
+                  <svg
+                    id="loading-spinner"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="hidden animate-spin"
+                  >
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                  </svg>
+                </button>
+              </form>
+
+              <!-- Status Messages -->
+              <div id="form-success" class="hidden mt-3 text-center">
+                <p class="text-green-400 text-sm">
+                  ขอบคุณสำหรับข้อความ! ฉันจะรีบติดต่อกลับไปเร็วๆ นี้
+                </p>
+              </div>
+              <div id="form-error" class="hidden mt-3 text-center">
+                <p class="text-red-400 text-sm">
+                  อุ๊ปส์! เกิดข้อผิดพลาด
+                  ลองส่งอีกครั้งหรือติดต่อฉันทางอีเมลโดยตรงนะ
+                </p>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 text-center fade-in fade-in-delay-3">
+              <p class="text-green-400/50 text-xs">
+                © <span id="current-year"></span> ทำด้วยความรักและคาเฟอีนเยอะมาก
+                💚
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    // Set current year in footer
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-  
-    // Set typing complete after animation finishes
-    setTimeout(() => {
-      document.getElementById('subtitle').style.opacity = '1';
-      document.getElementById('subtitle-en').style.opacity = '1';
-      document.getElementById('fun-container').style.opacity = '1';
-      document.getElementById('tools-container').style.opacity = '1';
-      document.getElementById('social-container').style.opacity = '1';
-      document.getElementById('contact-container').style.opacity = '1';
-      document.getElementById('about-container').style.opacity = '1';
-    }, 3500);
-  
-    // Rotate through emojis
-    const emojis = ["🛠️", "🚧", "💻", "🎮", "✨", "🔧"];
-    let currentEmoji = 0;
-    
-    setInterval(() => {
-      document.getElementById('emoji').textContent = emojis[currentEmoji];
-      currentEmoji = (currentEmoji + 1) % emojis.length;
-    }, 2000);
-  
-    // Rotate through funny messages
-    const funnyMessages = [
-      "กำลังเขียนโค้ดแบบหลับตา... 😴",
-      "วันนี้ดื่มกาแฟไปแล้ว 5 แก้ว... ☕",
-      "กำลังผูกมิตรกับบัคแปลกๆ... 🐞",
-      "พยายามไม่กด Ctrl+Z ทุก 5 วินาที... ⌨️",
-      "กำลังเกลี้ยกล่อม CSS ให้ทำตามที่สั่ง... 🧙‍♂️",
-      "ขอเวลาอีกนิดนะ กำลังเถียงกับ AI... 🤖"
-    ];
-    
-    let currentMessageIndex = 0;
-    document.getElementById('funny-message').textContent = funnyMessages[0];
-    
-    setInterval(() => {
-      currentMessageIndex = Math.floor(Math.random() * funnyMessages.length);
-      document.getElementById('funny-message').textContent = funnyMessages[currentMessageIndex];
-    }, 5000);
-  
-    // Handle form submission
-    document.getElementById('contact-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const submitBtn = document.getElementById('submit-btn');
-      const submitText = document.getElementById('submit-text');
-      const submitIcon = document.getElementById('submit-icon');
-      const loadingSpinner = document.getElementById('loading-spinner');
-      const formSuccess = document.getElementById('form-success');
-      const formError = document.getElementById('form-error');
-      
-      submitBtn.disabled = true;
-      submitText.textContent = 'กำลังส่ง...';
-      submitIcon.classList.add('hidden');
-      loadingSpinner.classList.remove('hidden');
-      formError.classList.add('hidden');
-      
-      const templateParams = {
-        from_name: this.from_name.value,
-        from_email: this.from_email.value,
-        message: this.message.value,
-        to_email: 'amindao.work@gmail.com'
-      };
-      
-      const autoReplyParams = {
-        to_name: this.from_name.value,
-        to_email: this.from_email.value,
-        message: this.message.value
-      };
-      
-      emailjs.send('service_gjqq5jm', 'template_inbeyvp', templateParams)
-        .then(() => emailjs.send('service_gjqq5jm', 'template_ysj7b7n', autoReplyParams))
-        .then(() => {
-          formSuccess.classList.remove('hidden');
-          this.reset();
-        })
-        .catch((error) => {
-          console.error('Failed:', error);
-          formError.textContent = 'เกิดข้อผิดพลาด: ' + (error.text || 'กรุณาลองใหม่ในภายหลัง');
-          formError.classList.remove('hidden');
-        })
-        .finally(() => {
-          submitBtn.disabled = false;
-          submitText.textContent = 'ส่งข้อความ';
-          submitIcon.classList.remove('hidden');
-          loadingSpinner.classList.add('hidden');
+    <script>
+      // Set current year in footer
+      document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+
+      // Set typing complete after animation finishes
+      setTimeout(() => {
+        document.getElementById("subtitle").style.opacity = "1";
+        document.getElementById("subtitle-en").style.opacity = "1";
+        document.getElementById("fun-container").style.opacity = "1";
+        document.getElementById("tools-container").style.opacity = "1";
+        document.getElementById("social-container").style.opacity = "1";
+        document.getElementById("contact-container").style.opacity = "1";
+        document.getElementById("about-container").style.opacity = "1";
+      }, 3500);
+
+      // Rotate through emojis
+      const emojis = ["🛠️", "🚧", "💻", "🎮", "✨", "🔧"];
+      let currentEmoji = 0;
+
+      setInterval(() => {
+        document.getElementById("emoji").textContent = emojis[currentEmoji];
+        currentEmoji = (currentEmoji + 1) % emojis.length;
+      }, 2000);
+
+      // Rotate through funny messages
+      const funnyMessages = [
+        "กำลังเขียนโค้ดแบบหลับตา... 😴",
+        "วันนี้ดื่มกาแฟไปแล้ว 5 แก้ว... ☕",
+        "กำลังผูกมิตรกับบัคแปลกๆ... 🐞",
+        "พยายามไม่กด Ctrl+Z ทุก 5 วินาที... ⌨️",
+        "กำลังเกลี้ยกล่อม CSS ให้ทำตามที่สั่ง... 🧙‍♂️",
+        "ขอเวลาอีกนิดนะ กำลังเถียงกับ AI... 🤖",
+      ];
+
+      let currentMessageIndex = 0;
+      document.getElementById("funny-message").textContent = funnyMessages[0];
+
+      setInterval(() => {
+        currentMessageIndex = Math.floor(Math.random() * funnyMessages.length);
+        document.getElementById("funny-message").textContent =
+          funnyMessages[currentMessageIndex];
+      }, 5000);
+
+      // Handle form submission
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const submitBtn = document.getElementById("submit-btn");
+          const submitText = document.getElementById("submit-text");
+          const submitIcon = document.getElementById("submit-icon");
+          const loadingSpinner = document.getElementById("loading-spinner");
+          const formSuccess = document.getElementById("form-success");
+          const formError = document.getElementById("form-error");
+
+          submitBtn.disabled = true;
+          submitText.textContent = "กำลังส่ง...";
+          submitIcon.classList.add("hidden");
+          loadingSpinner.classList.remove("hidden");
+          formError.classList.add("hidden");
+
+          const templateParams = {
+            from_name: this.from_name.value,
+            from_email: this.from_email.value,
+            message: this.message.value,
+            to_email: "amindao.work@gmail.com",
+          };
+
+          const autoReplyParams = {
+            to_name: this.from_name.value,
+            to_email: this.from_email.value,
+            message: this.message.value,
+          };
+
+          emailjs
+            .send("service_gjqq5jm", "template_inbeyvp", templateParams)
+            .then(() =>
+              emailjs.send(
+                "service_gjqq5jm",
+                "template_ysj7b7n",
+                autoReplyParams
+              )
+            )
+            .then(() => {
+              formSuccess.classList.remove("hidden");
+              this.reset();
+            })
+            .catch((error) => {
+              console.error("Failed:", error);
+              formError.textContent =
+                "เกิดข้อผิดพลาด: " + (error.text || "กรุณาลองใหม่ในภายหลัง");
+              formError.classList.remove("hidden");
+            })
+            .finally(() => {
+              submitBtn.disabled = false;
+              submitText.textContent = "ส่งข้อความ";
+              submitIcon.classList.remove("hidden");
+              loadingSpinner.classList.add("hidden");
+            });
         });
-    });
-  
-    // Language switcher
-    document.getElementById('language-btn').addEventListener('click', function() {
-      document.body.classList.toggle('english-mode');
-      const btn = document.getElementById('language-btn');
-      if (document.body.classList.contains('english-mode')) {
-        btn.innerHTML = '<span>ไทย</span>';
-      } else {
-        btn.innerHTML = '<span>EN</span>';
-      }
-    });
-  
-    // Show more/less buttons
-    document.getElementById('show-more-btn').addEventListener('click', function() {
-      document.getElementById('more-info').classList.remove('hidden');
-      this.classList.add('hidden');
-      document.getElementById('show-more-btn-en').classList.add('hidden');
-    });
-    
-    document.getElementById('show-more-btn-en').addEventListener('click', function() {
-      document.getElementById('more-info').classList.remove('hidden');
-      this.classList.add('hidden');
-      document.getElementById('show-more-btn').classList.add('hidden');
-    });
-  
-    document.getElementById('show-less-btn').addEventListener('click', function() {
-      document.getElementById('more-info').classList.add('hidden');
-      document.getElementById('show-more-btn').classList.remove('hidden');
-      document.getElementById('show-more-btn-en').classList.remove('hidden');
-    });
-    
-    document.getElementById('show-less-btn-en').addEventListener('click', function() {
-      document.getElementById('more-info').classList.add('hidden');
-      document.getElementById('show-more-btn').classList.remove('hidden');
-      document.getElementById('show-more-btn-en').classList.remove('hidden');
-    });
-  </script>
-</body>
+
+      // Language switcher
+      document
+        .getElementById("language-btn")
+        .addEventListener("click", function () {
+          document.body.classList.toggle("english-mode");
+          const btn = document.getElementById("language-btn");
+          if (document.body.classList.contains("english-mode")) {
+            btn.innerHTML = "<span>ไทย</span>";
+          } else {
+            btn.innerHTML = "<span>EN</span>";
+          }
+        });
+
+      // Show more/less buttons
+      document
+        .getElementById("show-more-btn")
+        .addEventListener("click", function () {
+          document.getElementById("more-info").classList.remove("hidden");
+          this.classList.add("hidden");
+          document.getElementById("show-more-btn-en").classList.add("hidden");
+        });
+
+      document
+        .getElementById("show-more-btn-en")
+        .addEventListener("click", function () {
+          document.getElementById("more-info").classList.remove("hidden");
+          this.classList.add("hidden");
+          document.getElementById("show-more-btn").classList.add("hidden");
+        });
+
+      document
+        .getElementById("show-less-btn")
+        .addEventListener("click", function () {
+          document.getElementById("more-info").classList.add("hidden");
+          document.getElementById("show-more-btn").classList.remove("hidden");
+          document
+            .getElementById("show-more-btn-en")
+            .classList.remove("hidden");
+        });
+
+      document
+        .getElementById("show-less-btn-en")
+        .addEventListener("click", function () {
+          document.getElementById("more-info").classList.add("hidden");
+          document.getElementById("show-more-btn").classList.remove("hidden");
+          document
+            .getElementById("show-more-btn-en")
+            .classList.remove("hidden");
+        });
+    </script>
+  </body>
 </html>
